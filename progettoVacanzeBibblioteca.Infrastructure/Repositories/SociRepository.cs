@@ -4,10 +4,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using progettoVacanzeBibblioteca.Domain.Entities;
+using progettoVacanzeBibblioteca.Infrastructure.Interfaces;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 {
-    public class SociRepository
+    public sealed class SociRepository : ISociRepository
     {
         private readonly AdoNetDatabase _database;
 
@@ -28,9 +29,16 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             SET ...
             WHERE id = @id;";
         
-        public SociRepository()
+        private SociRepository()
         {
-            _database = new AdoNetDatabase(null);
+            _database = AdoNetDatabase.Create(connectionString: null);
+        }
+
+        public static SociRepository Create() => new SociRepository();
+
+        public long Create(Socio socio)
+        {
+            return 0l;
         }
 
         public IEnumerable<Socio> Read()

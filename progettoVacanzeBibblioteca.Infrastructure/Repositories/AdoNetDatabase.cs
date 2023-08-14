@@ -4,18 +4,21 @@ using System.Data;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 {
-    internal class AdoNetDatabase
+    internal sealed class AdoNetDatabase
     {
-        private string connectionString;
+        private string _connectionString;
 
-        public AdoNetDatabase(string connectionString)
+        private AdoNetDatabase(string connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
+
+        public static AdoNetDatabase Create(string connectionString) => 
+            new AdoNetDatabase(connectionString);
         
         public DataTable ExecuteQuery(SqlCommand command)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 
@@ -30,7 +33,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         public int ExecuteNonQuery(SqlCommand command)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 command.Connection = connection;
                 
@@ -40,7 +43,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         public int ExecuteScalar(SqlCommand command)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 command.Connection = connection;
                 return (int)(command.ExecuteScalar() ?? 0);

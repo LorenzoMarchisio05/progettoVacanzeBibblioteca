@@ -1,6 +1,6 @@
 namespace progettoVacanzeBibblioteca.Domain.Entities
 {
-    public class Socio
+    public sealed class Socio
     {
         public long Id { get; }
     }

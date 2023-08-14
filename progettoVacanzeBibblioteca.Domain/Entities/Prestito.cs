@@ -1,6 +1,6 @@
 namespace progettoVacanzeBibblioteca.Domain.Entities
 {
-    public class Prestito
+    public sealed class Prestito
     {
         public long Id { get; }
     }

@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using progettoVacanzeBibblioteca.Domain.Entities;
+using progettoVacanzeBibblioteca.Infrastructure.Interfaces;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 {
-    public class PrestitiRepository
+    public sealed class PrestitiRepository : IPrestitiRepository
     {
         private readonly AdoNetDatabase _database;
         
@@ -26,11 +27,18 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             SET ...
             WHERE id = @id;";
         
-        public PrestitiRepository()
+        private PrestitiRepository()
         {
-            _database = new AdoNetDatabase(null);
+            _database = AdoNetDatabase.Create(connectionString: null);
         }
+
+        public static PrestitiRepository Create() => new PrestitiRepository();
         
+        public long Create(Prestito prestito)
+        {
+            return 0l;
+        }
+
         public IEnumerable<Prestito> Read()
         {
             var command = new SqlCommand

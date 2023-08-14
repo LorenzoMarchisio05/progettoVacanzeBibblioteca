@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using progettoVacanzeBibblioteca.Domain.Entities;
+using progettoVacanzeBibblioteca.Infrastructure.Interfaces;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 {
-    public class LibriRepository
+    public sealed class LibriRepository : ILibriRepository
     {
         private readonly AdoNetDatabase _database;
         
@@ -26,9 +27,16 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             SET ...
             WHERE id = @id;";
         
-        public LibriRepository()
+        private LibriRepository()
         {
-            _database = new AdoNetDatabase(null);
+            _database = AdoNetDatabase.Create(connectionString: null);
+        }
+
+        public static LibriRepository Create() => new LibriRepository();
+
+        public long Create(Libro libro)
+        {
+            return 0l;
         }
 
         public IEnumerable<Libro> Read()
