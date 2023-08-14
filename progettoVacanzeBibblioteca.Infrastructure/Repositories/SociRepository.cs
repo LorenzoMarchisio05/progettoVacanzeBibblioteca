@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using progettoVacanzeBibblioteca.Domain.Entities;
+using progettoVacanzeBibblioteca.Domain.Settings;
+using progettoVacanzeBibblioteca.Infrastructure.Adapters;
 using progettoVacanzeBibblioteca.Infrastructure.Interfaces;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
@@ -31,7 +33,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         private SociRepository()
         {
-            _database = AdoNetDatabase.Create(connectionString: null);
+            _database = AdoNetDatabase.Create(connectionString: GlobalSettings.ConnectionString);
         }
 
         public static SociRepository Create() => new SociRepository();
@@ -49,7 +51,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             };
             var dataTable = _database.ExecuteQuery(command);
             
-            return null;
+            return SocioAdapter.Adapt(dataTable.Rows);
         }
 
         public Socio Read(long id)
@@ -65,7 +67,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             
             var dataTable = _database.ExecuteQuery(command);
             
-            return null;
+            return SocioAdapter.Adapt(dataTable.Rows[0]);
         }
 
         public bool Update(Socio socio)
