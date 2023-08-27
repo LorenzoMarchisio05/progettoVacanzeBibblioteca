@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{A565427B-1DBA-4910-BC9B-348BA39B80BC}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>progettoVacanzeBibblioteca.Infrastructure</RootNamespace>
+        <AssemblyName>progettoVacanzeBibblioteca.Infrastructure</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="OneOf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\OneOf.3.0.255\lib\net45\OneOf.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Adapters\LibroAdapter.cs" />
+        <Compile Include="Adapters\PrestitoAdapter.cs" />
+        <Compile Include="Adapters\SocioAdapter.cs" />
+        <Compile Include="Controllers\ChartController.cs" />
+        <Compile Include="Controllers\LibriController.cs" />
+        <Compile Include="Controllers\PrestitiController.cs" />
+        <Compile Include="Controllers\QueryController.cs" />
+        <Compile Include="Controllers\SociController.cs" />
+        <Compile Include="Interfaces\ILibriRepository.cs" />
+        <Compile Include="Interfaces\IPrestitiRepository.cs" />
+        <Compile Include="Interfaces\IRepository.cs" />
+        <Compile Include="Interfaces\ISociRepository.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Repositories\AdoNetDatabase.cs" />
+        <Compile Include="Repositories\LibriRepository.cs" />
+        <Compile Include="Repositories\PrestitiRepository.cs" />
+        <Compile Include="Repositories\SociRepository.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\progettoVacanzeBibblioteca.Domain\progettoVacanzeBibblioteca.Domain.csproj">
+        <Project>{0dee13a2-f321-41b0-bf17-f5f4442ca004}</Project>
+        <Name>progettoVacanzeBibblioteca.Domain</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>

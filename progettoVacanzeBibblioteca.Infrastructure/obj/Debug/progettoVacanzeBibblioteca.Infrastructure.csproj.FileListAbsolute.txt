@@ -1,0 +1,12 @@
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Infrastructure/obj/Debug/progettoVacanzeBibblioteca.Infrastructure.csproj.AssemblyReference.cache
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Infrastructure/obj/Debug/progettoVacanzeBibblioteca.Infrastructure.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\bin\Debug\progettoVacanzeBibblioteca.Infrastructure.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\bin\Debug\progettoVacanzeBibblioteca.Infrastructure.pdb
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\bin\Debug\OneOf.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\bin\Debug\progettoVacanzeBibblioteca.Domain.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\bin\Debug\progettoVacanzeBibblioteca.Domain.pdb
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\obj\Debug\progettoVacanzeBibblioteca.Infrastructure.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\obj\Debug\progettoVacanzeBibblioteca.Infrastructure.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\obj\Debug\progettoVacanzeBibblioteca.Infrastructure.csproj.CopyComplete
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\obj\Debug\progettoVacanzeBibblioteca.Infrastructure.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Infrastructure\obj\Debug\progettoVacanzeBibblioteca.Infrastructure.pdb

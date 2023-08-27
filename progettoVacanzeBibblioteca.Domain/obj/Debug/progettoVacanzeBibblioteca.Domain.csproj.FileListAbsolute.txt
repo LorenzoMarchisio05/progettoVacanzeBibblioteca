@@ -1,0 +1,12 @@
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/bin/Debug/progettoVacanzeBibblioteca.Domain.dll
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/bin/Debug/progettoVacanzeBibblioteca.Domain.pdb
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/obj/Debug/progettoVacanzeBibblioteca.Domain.csproj.AssemblyReference.cache
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/obj/Debug/progettoVacanzeBibblioteca.Domain.csproj.CoreCompileInputs.cache
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/obj/Debug/progettoVacanzeBibblioteca.Domain.dll
+/Users/lorenzomarchisio/Desktop/progettoVacanzeBibblioteca/progettoVacanzeBibblioteca.Domain/obj/Debug/progettoVacanzeBibblioteca.Domain.pdb
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\bin\Debug\progettoVacanzeBibblioteca.Domain.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\bin\Debug\progettoVacanzeBibblioteca.Domain.pdb
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.dll
+\\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.pdb
