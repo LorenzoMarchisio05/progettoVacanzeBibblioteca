@@ -5,7 +5,7 @@ namespace progettoVacanzeBibblioteca.Domain.Settings
 {
     public static class GlobalSettings
     {
-        public static string ConnectionString { get; private set; } = null;
+        public static string ConnectionString { get; private set; }
 
         public static void SetConnectionString(string connectionString)
         {
