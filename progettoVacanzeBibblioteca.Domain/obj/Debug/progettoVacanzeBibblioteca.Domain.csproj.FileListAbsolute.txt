@@ -10,3 +10,9 @@
 \\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.csproj.CoreCompileInputs.cache
 \\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.dll
 \\Mac\Home\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.pdb
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\bin\Debug\progettoVacanzeBibblioteca.Domain.dll
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\bin\Debug\progettoVacanzeBibblioteca.Domain.pdb
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.csproj.AssemblyReference.cache
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.csproj.CoreCompileInputs.cache
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.dll
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Domain\obj\Debug\progettoVacanzeBibblioteca.Domain.pdb

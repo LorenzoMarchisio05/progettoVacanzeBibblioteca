@@ -35,25 +35,36 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
          * 10. Il numero di prestiti per mese e anno 
          */
         
-        private static readonly string QUERY_01 = "...";
+        private static readonly string QUERY_01 = @"...";
         
-        private static readonly string QUERY_02 = "...";
+        private static readonly string QUERY_02 = @"...";
         
-        private static readonly string QUERY_03 = "...";
+        private static readonly string QUERY_03 = @"...";
         
-        private static readonly string QUERY_04 = "...";
+        private static readonly string QUERY_04 = @"...";
         
-        private static readonly string QUERY_05 = "...";
+        private static readonly string QUERY_05 = @"SELECT COUNT(*), Autori.Nome + ' ' + Autori.Cognome
+            FROM libri, scrivono, autori
+            WHERE libri.idLibro = scrivono.idLibro AND 
+                  scrvinono.idAutore = autori.idAutore";
         
-        private static readonly string QUERY_06 = "...";
+        private static readonly string QUERY_06 = @"...";
         
-        private static readonly string QUERY_07 = "...";
+        private static readonly string QUERY_07 = @"SELECT * FROM libri";
         
-        private static readonly string QUERY_08 = "...";
+        private static readonly string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, Prestiti.DataFine)
+            FROM Libri, Prestiti
+            WHERE Libri.idLibro = Prestiti.idLibro
+            GROP BY Libri.Titolo";
         
-        private static readonly string QUERY_09 = "...";
+        private static readonly string QUERY_09 = @"SELECT Libri.Titolo, Prestiti.DataInizio 
+            FROM Libri, Prestiti
+            WHERE Libri.idLibro = Prestiti.idLibro
+            ORDER BY Libri.Titolo, Prestiti.DataInizio";
         
-        private static readonly string QUERY_10 = "...";
+        private static readonly string QUERY_10 = @"SELECT COUNT(*), MONTH(DataInizio), YEAR(DataInizio) 
+            FROM prestiti
+            GROUP BY MONTH(DataInizio), YEAR(DataInizio);";
         
         #endregion
 

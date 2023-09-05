@@ -18,18 +18,28 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 
         private readonly string SELECT_All = $@"SELECT * 
             FROM {TABLE_NAME};";
+
+        private readonly string INSERT = $@"INSERT INTO {TABLE_NAME} 
+            (cognome, nome, telefono, email) 
+            VALUES 
+            (@cognome, @nome, @telefono, @email); 
+            SELECT SCOPE_IDENTITY();";
         
         private readonly string SELECT_BY_ID = $@"SELECT * 
             FROM {TABLE_NAME} 
-            WHERE id = @id;";
+            WHERE idSocio = @id;";
         
         private readonly string DELETE_BY_ID = $@"DELETE 
             FROM {TABLE_NAME} 
-            WHERE id = @id;";
+            WHERE idSocio = @id;";
         
         private readonly string UPDATE_BY_ID = $@"UPDATE {TABLE_NAME} 
-            SET ...
-            WHERE id = @id;";
+            SET 
+                cognome = @cognome,
+                nome = @nome,
+                telefono = @telefono,
+                email = @email
+            WHERE idSocio = @id;";
         
         private SociRepository()
         {
@@ -40,7 +50,19 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 
         public long Create(Socio socio)
         {
-            return 0l;
+            var command = new SqlCommand
+            {
+                CommandText = INSERT,
+                Parameters =
+                {
+                    new SqlParameter("cognome", SqlDbType.VarChar) { Value = socio.Cognome },
+                    new SqlParameter("nome", SqlDbType.VarChar) { Value = socio.Nome },
+                    new SqlParameter("telefono", SqlDbType.VarChar) { Value = socio.Telefono.ToString() },
+                    new SqlParameter("email", SqlDbType.VarChar) { Value = socio.Email.ToString() },
+                },
+            };
+
+            return (int)(_database.ExecuteScalar(command) ?? -1);
         }
 
         public IEnumerable<Socio> Read()
@@ -78,6 +100,10 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
                 Parameters =
                 {
                     new SqlParameter("id", SqlDbType.Int) { Value = socio.Id },
+                    new SqlParameter("cognome", SqlDbType.VarChar) { Value = socio.Cognome },
+                    new SqlParameter("nome", SqlDbType.VarChar) { Value = socio.Nome },
+                    new SqlParameter("telefono", SqlDbType.VarChar) { Value = socio.Telefono.ToString() },
+                    new SqlParameter("email", SqlDbType.VarChar) { Value = socio.Email.ToString() },
                 },
             };
 
@@ -95,7 +121,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
                 },
             };
 
-            return _database.ExecuteNonQuery(command) != 0;
+            return _database.ExecuteNonQuery(command) != 1;
         }
 
     }

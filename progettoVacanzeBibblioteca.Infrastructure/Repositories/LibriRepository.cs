@@ -14,8 +14,14 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         private const string TABLE_NAME = "libri";
         
-        public long Id { get; } private readonly string SELECT_All = $@"SELECT * 
+        private readonly string SELECT_All = $@"SELECT * 
             FROM {TABLE_NAME};";
+
+        private readonly string INSERT = $@"INSERT INTO {TABLE_NAME}
+            (titolo, annoPubblicazione, lingua, disponibile, idGenere)
+            VALUES 
+            (@titolo, @annoPubblicazione, @lingua, @disponibile, @idGenere);
+            SELECT SCOPE_IDENTITY();";
         
         private readonly string SELECT_BY_ID = $@"SELECT * 
             FROM {TABLE_NAME} 
@@ -23,11 +29,16 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         private readonly string DELETE_BY_ID = $@"DELETE 
             FROM {TABLE_NAME} 
-            WHERE id = @id;";
+            WHERE idLibro = @id;";
         
         private readonly string UPDATE_BY_ID = $@"UPDATE {TABLE_NAME}
-            SET ...
-            WHERE id = @id;";
+            SET 
+                titolo = @titolo,
+                annoPubblicazione = @annoPubblicazione,
+                lingua = @lingua,
+                disponibile = @disponibile,
+                idGenere = @idGenere
+            WHERE idLibro = @id;";
         
         private LibriRepository()
         {
@@ -38,7 +49,20 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
 
         public long Create(Libro libro)
         {
-            return 0l;
+            var command = new SqlCommand
+            {
+                CommandText = INSERT,
+                Parameters =
+                {
+                    new SqlParameter("titolo", SqlDbType.VarChar) { Value = libro.Titolo },
+                    new SqlParameter("annoPubblicazione", SqlDbType.Int) { Value = libro.AnnoPubblicazione },
+                    new SqlParameter("lingua", SqlDbType.VarChar) { Value = libro.Lingua },
+                    new SqlParameter("disponibile", SqlDbType.Bit) { Value = libro.Disponibile ? 1 : 0 },
+                    new SqlParameter("idGenere", SqlDbType.Int) { Value = libro.IdGenere },
+                },
+            };
+
+            return (long)(_database.ExecuteScalar(command) ?? -1);
         }
 
         public IEnumerable<Libro> Read()
@@ -72,10 +96,15 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         {
             var command = new SqlCommand
             {
-                CommandText = DELETE_BY_ID,
+                CommandText = UPDATE_BY_ID,
                 Parameters =
                 {
                     new SqlParameter("id", SqlDbType.Int) { Value = libro.Id },
+                    new SqlParameter("titolo", SqlDbType.VarChar) { Value = libro.Titolo },
+                    new SqlParameter("annoPubblicazione", SqlDbType.VarChar) { Value = libro.AnnoPubblicazione },
+                    new SqlParameter("lingua", SqlDbType.VarChar) { Value = libro.Lingua },
+                    new SqlParameter("disponibile", SqlDbType.Bit) { Value = libro.Disponibile ? 1 : 0 },
+                    new SqlParameter("idGenere", SqlDbType.Int) { Value = libro.IdGenere },
                 },
             };
 

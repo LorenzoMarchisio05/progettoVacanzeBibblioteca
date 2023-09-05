@@ -2,7 +2,7 @@ namespace progettoVacanzeBibblioteca.Domain.Entities
 {
     public sealed class PhoneNumber
     {
-        public string Value { get; }
+        private string Value { get; }
 
         private PhoneNumber(string number)
         {
@@ -12,6 +12,6 @@ namespace progettoVacanzeBibblioteca.Domain.Entities
         public static PhoneNumber From(string number) => new PhoneNumber(number);
 
         public static implicit operator string(PhoneNumber number) => number.ToString();
-        public override string ToString() => Value;
+        public override string ToString() => Value ?? "";
     }
 }

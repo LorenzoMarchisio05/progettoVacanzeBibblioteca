@@ -31,7 +31,6 @@ namespace progettoVacanzeBibblioteca.Presentation
         private void FrmLibri_Load(object sender, EventArgs e)
         {
             txtId.ReadOnly = true;
-            txtIdGenere.ReadOnly = true;
 
             _libriController.LeggiLibri().Switch(
                 data => libri = data.ToList(),
@@ -119,8 +118,7 @@ namespace progettoVacanzeBibblioteca.Presentation
         {
             if (!long.TryParse(txtId.Text, out var id))
             {
-                MessageBox.Show("Id non valido");
-                return null;
+                id = -1;
             }
 
             var titolo = txtTitolo.Text?.Trim();
@@ -161,7 +159,6 @@ namespace progettoVacanzeBibblioteca.Presentation
             txtIdGenere.Text = libro.IdGenere.ToString();
 
             txtId.ReadOnly = true;
-            txtIdGenere.ReadOnly = true;
         }
 
         private void updateDataGridView()

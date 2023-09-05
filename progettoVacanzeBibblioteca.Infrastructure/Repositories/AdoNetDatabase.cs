@@ -21,7 +21,6 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                
                 command.Connection = connection;
                 
                 var dataTable = new DataTable();
@@ -35,18 +34,19 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                connection.Open();
                 command.Connection = connection;
-                
                 return command.ExecuteNonQuery();
             }
         }
         
-        public int ExecuteScalar(SqlCommand command)
+        public object ExecuteScalar(SqlCommand command)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                connection.Open();
                 command.Connection = connection;
-                return (int)(command.ExecuteScalar() ?? 0);
+                return command.ExecuteScalar();
             }
         }
         
