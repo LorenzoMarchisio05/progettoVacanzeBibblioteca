@@ -14,13 +14,8 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
 {
     public sealed class QueryController
     {
-        private readonly AdoNetDatabase _database;
-        
-        public QueryController()
-        {
-            _database = AdoNetDatabase.Create(connectionString: GlobalSettings.ConnectionString);
-        }
-        
+        private readonly AdoNetDatabase _database = AdoNetDatabase.Create(GlobalSettings.ConnectionString);
+
         #region QUERY
         /*
          * 1. Il titolo dei 5 libri più letti visualizzando anche il numero di prestiti con un istogramma usando l’oggetto msChart
@@ -35,34 +30,52 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
          * 10. Il numero di prestiti per mese e anno 
          */
         
-        private static readonly string QUERY_01 = @"...";
+        private const string QUERY_01 = @"SELECT TOP 5 COUNT(*), Libri.Titolo
+           FROM Libri, Prestiti 
+           WHERE Libri.idLibro = Prestiti.idLibro
+           GROUP BY Prestiti.idLibro, Libri.Titolo
+           ORDER BY COUNT(*)";
         
-        private static readonly string QUERY_02 = @"...";
+        private const string QUERY_02 = @"SELECT *
+            FROM Libri 
+            WHERE idLibro NOT IN ( SELECT DISTINCT idLibro
+                                   FROM PRESTITI )";
         
-        private static readonly string QUERY_03 = @"...";
+        private const string QUERY_03 = @"SELECT TOP 1 WITH TIES count(*) AS 'numero libri lettii', Socio.* 
+            FROM Soci, Prestiti
+            WHERE Soci.idSocio = Prestiti.idSocio
+            ORDER BY count(*)";
         
-        private static readonly string QUERY_04 = @"...";
+        private const string QUERY_04 = @"SELECT Socio.* 
+            FROM Socio, Prestiti
+            WHERE Socio.idSocio = Prestiti.idSocio
+                AND DATEADD(days, 30, Prestiti.DataInizio) > CAST( GETDATE() AS DATE )";
         
-        private static readonly string QUERY_05 = @"SELECT COUNT(*), Autori.Nome + ' ' + Autori.Cognome
+        private const string QUERY_05 = @"SELECT COUNT(*), Autori.Nome + ' ' + Autori.Cognome
             FROM libri, scrivono, autori
-            WHERE libri.idLibro = scrivono.idLibro AND 
-                  scrvinono.idAutore = autori.idAutore";
+            WHERE Libri.idLibro = Scrivono.idLibro AND 
+                  Scrvinono.idAutore = Autori.idAutore";
         
-        private static readonly string QUERY_06 = @"...";
+        private const string QUERY_06 = @"SELECT Libri.* 
+            FROM Libri, SonoContenute, ParolaChiave
+            WHERE Libri.idLibro = SonoContenute.idLibro 
+                AND SonoContenuto.idParolaChiave = (SELECT idParolaChiave 
+                                                    FROM ParoleChiave
+                                                    WHERE ParolaChiave = @parolaChiave)";
         
-        private static readonly string QUERY_07 = @"SELECT * FROM libri";
+        private const string QUERY_07 = @"SELECT * FROM libri";
         
-        private static readonly string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, Prestiti.DataFine)
+        private const string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, Prestiti.DataFine)
             FROM Libri, Prestiti
             WHERE Libri.idLibro = Prestiti.idLibro
-            GROP BY Libri.Titolo";
+            GROUP BY Libri.Titolo";
         
-        private static readonly string QUERY_09 = @"SELECT Libri.Titolo, Prestiti.DataInizio 
+        private const string QUERY_09 = @"SELECT Libri.Titolo, Prestiti.DataInizio 
             FROM Libri, Prestiti
             WHERE Libri.idLibro = Prestiti.idLibro
             ORDER BY Libri.Titolo, Prestiti.DataInizio";
         
-        private static readonly string QUERY_10 = @"SELECT COUNT(*), MONTH(DataInizio), YEAR(DataInizio) 
+        private const string QUERY_10 = @"SELECT COUNT(*), MONTH(DataInizio), YEAR(DataInizio) 
             FROM prestiti
             GROUP BY MONTH(DataInizio), YEAR(DataInizio);";
         
