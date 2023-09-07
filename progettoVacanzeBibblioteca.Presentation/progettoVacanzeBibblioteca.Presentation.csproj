@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="OneOf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OneOf.3.0.255\lib\net45\OneOf.dll</HintPath>
     </Reference>
@@ -90,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPrestiti.resx">
+      <DependentUpon>FrmPrestiti.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSoci.resx">
       <DependentUpon>FrmSoci.cs</DependentUpon>

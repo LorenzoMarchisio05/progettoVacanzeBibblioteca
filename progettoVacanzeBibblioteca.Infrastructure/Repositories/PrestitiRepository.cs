@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using progettoVacanzeBibblioteca.Domain.Entities;
 using progettoVacanzeBibblioteca.Domain.Settings;
 using progettoVacanzeBibblioteca.Infrastructure.Adapters;
@@ -29,25 +30,47 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         private const string UPDATE_DISPONIBILE_LIBRO = @"UPDATE Libri 
             SET Disponibile = 0 
             WHERE  idLibro = @idLibro";
+
+        private const string SELECT_LIBRI_AUTORE = @"SELECT Libri.* 
+            FROM Libri, Scrivono 
+            WHERE Libri.idLibro = Scrivono.idLibro 
+                AND Scrivono.idAutore = (SELECT idAutore 
+                                         FROM Autori 
+                                         WHERE nome = @nome 
+                                            AND cognome = @cognome)";
         
         private readonly string SELECT_All = $@"SELECT * 
             FROM {TABLE_NAME};";
         
-        private readonly string SELECT_BY_ID = $@"SELECT * 
-            FROM {TABLE_NAME} 
-            WHERE id = @id;";
+        private readonly string SELECT_BY_ID = $@"SELECT Libri.* 
+            FROM {TABLE_NAME}, Libri
+            WHERE Libri.idLibro = {TABLE_NAME}.idPrestito 
+                AND idPrestito = @id;";
         
-        private readonly string SELECT_BY_ID_SOCIO = $@"SELECT * 
-            FROM {TABLE_NAME} 
-            WHERE idSocio = @id;";
-        
+        private readonly string SELECT_BY_ID_SOCIO = $@"SELECT Libri.* 
+            FROM {TABLE_NAME}, Libri
+            WHERE libri.idLibro = {TABLE_NAME}.idLibro,
+                idSocio = @id;";
+
+        private readonly string SELECT_BY_NOMINATIVO_SOCIO = $@"SELECT Libri.* 
+            FROM {TABLE_NAME}, Libri
+            WHERE libri.idLibro = {TABLE_NAME}.idLibro 
+                    AND idSocio = (SELECT idSocio 
+                                   FROM Soci
+                                    WHERE nome = @nome
+                                        AND cognome = @cognome)";
+
         private readonly string DELETE_BY_ID = $@"DELETE 
             FROM {TABLE_NAME} 
-            WHERE id = @id;";
+            WHERE idPrestito = @id;";
         
         private readonly string UPDATE_BY_ID = $@"UPDATE {TABLE_NAME}
-            SET ...
-            WHERE id = @id;";
+            SET
+                idLibro = @idLibro,
+                idSocio = @idSocio,
+                dataInizio = @dataInizio,
+                dataFine = @dataFine
+            WHERE idPrestito = @id;";
         
         private PrestitiRepository()
         {
@@ -109,7 +132,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             };
             var dataTable = _database.ExecuteQuery(command);
             
-            return PrestitoAdapter.Adapt(dataTable.Rows);
+            return PrestitiAdapter.Adapt(dataTable.Rows);
         }
 
         public Prestito Read(long id)
@@ -125,10 +148,42 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             
             var dataTable = _database.ExecuteQuery(command);
             
-            return PrestitoAdapter.Adapt(dataTable.Rows[0]);
+            return PrestitiAdapter.Adapt(dataTable.Rows[0]);
         }
-        
-        public Prestito ReadByIdSocio(long id)
+
+        public IEnumerable<Libro> ReadLibriByParolaChiave(string parolaChiave)
+        {
+            var command = new SqlCommand
+            {
+                CommandText = SELECT_LIBRI_AUTORE,
+                Parameters =
+                {
+                    new SqlParameter("parolaChiave", SqlDbType.VarChar) { Value = parolaChiave},
+                },
+            };
+
+            var dataTable = _database.ExecuteQuery(command);
+
+            return LibroAdapter.Adapt(dataTable.Rows);
+        }
+
+        public IEnumerable<Libro> ReadLibriByAutore(string nome, string cognome)
+        {
+            var command = new SqlCommand
+            {
+                CommandText = SELECT_LIBRI_AUTORE,
+                Parameters =
+                {
+                    new SqlParameter("nome", SqlDbType.VarChar) { Value = nome},
+                    new SqlParameter("cognome", SqlDbType.VarChar) { Value = cognome},
+                },
+            };
+
+            var dataTable = _database.ExecuteQuery(command);
+
+            return LibroAdapter.Adapt(dataTable.Rows);
+        }
+        public IEnumerable<Libro> ReadByIdSocio(long id)
         {
             var command = new SqlCommand
             {
@@ -141,17 +196,38 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             
             var dataTable = _database.ExecuteQuery(command);
             
-            return PrestitoAdapter.Adapt(dataTable.Rows[0]);
+            return LibroAdapter.Adapt(dataTable.Rows);
         }
+        public IEnumerable<Libro> ReadByNominativo(string nome, string cognome)
+        {
+            var command = new SqlCommand
+            {
+                CommandText = SELECT_BY_NOMINATIVO_SOCIO,
+                Parameters =
+                {
+                    new SqlParameter("nome", SqlDbType.VarChar) { Value = nome},
+                    new SqlParameter("cognome", SqlDbType.VarChar) { Value = cognome},
+                },
+            };
+
+            var dataTable = _database.ExecuteQuery(command);
+
+            return LibroAdapter.Adapt(dataTable.Rows);
+        }
+
 
         public bool Update(Prestito prestito)
         {
             var command = new SqlCommand
             {
-                CommandText = DELETE_BY_ID,
+                CommandText = UPDATE_BY_ID,
                 Parameters =
                 {
                     new SqlParameter("id", SqlDbType.Int) { Value = prestito.Id },
+                    new SqlParameter("idLibro", SqlDbType.Int) { Value = prestito.IdLibro },
+                    new SqlParameter("idSocio", SqlDbType.Int) { Value = prestito.IdSocio },
+                    new SqlParameter("dataInizio", SqlDbType.Date) { Value = prestito.DataInizio },
+                    new SqlParameter("dataFine", SqlDbType.Date) { Value = prestito.DataFine },
                 },
             };
 

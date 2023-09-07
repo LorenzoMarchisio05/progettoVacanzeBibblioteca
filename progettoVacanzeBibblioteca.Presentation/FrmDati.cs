@@ -1,4 +1,5 @@
-﻿using progettoVacanzeBibblioteca.Infrastructure.Controllers;
+﻿using Microsoft.VisualBasic;
+using progettoVacanzeBibblioteca.Infrastructure.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,7 +73,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery6_Click(object sender, EventArgs e)
         {
-            queryController.fetchLibriPerParolaChiave("")
+            queryController.fetchLibriPerParolaChiave(Interaction.InputBox("Inserisci parola chiave"))
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -81,7 +82,26 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery7_Click(object sender, EventArgs e)
         {
-            queryController.fetchLibriPerLinguaGenere("", null)
+            var result = MessageBox.Show("ricerca per lingua o genere? (si -> lingua, no -> genere)", "Tipo ricerca", MessageBoxButtons.YesNoCancel);
+            
+            if(result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            string lingua = null, 
+                   genere = null;
+
+            if(result == DialogResult.Yes)
+            {
+                lingua = Interaction.InputBox("Inserisci lingua");
+            }
+            else
+            {
+                genere = Interaction.InputBox("Inserisci genere");
+            }
+
+            queryController.fetchLibriPerLinguaGenere(lingua, genere)
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())

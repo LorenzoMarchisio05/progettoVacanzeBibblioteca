@@ -11,7 +11,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
 {
     public sealed class PrestitiController
     {
-        private readonly IPrestitiRepository _prestitiRepository;
+        private readonly PrestitiRepository _prestitiRepository;
 
         public PrestitiController()
         {
@@ -24,6 +24,42 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             try
             {
                 return _prestitiRepository.Create(prestito);
+            }
+            catch (Exception ex)
+            {
+                return InternalError.Create(ex.Message);
+            }
+        }
+
+        public OneOf<IReadOnlyList<Libro>, InternalError> LeggiPrestitiByAutore(string nome, string cognome)
+        {
+            try
+            {
+                return _prestitiRepository.ReadLibriByAutore(nome, cognome).ToList();
+            }
+            catch (Exception ex)
+            {
+                return InternalError.Create(ex.Message);
+            }
+        }
+
+        public OneOf<IReadOnlyList<Libro>, InternalError> LeggiPrestitiByIdSocio(long id)
+        {
+            try
+            {
+                return _prestitiRepository.ReadByIdSocio(id).ToList();
+            }
+            catch (Exception ex)
+            {
+                return InternalError.Create(ex.Message);
+            }
+        }
+
+        public OneOf<IReadOnlyList<Libro>, InternalError> LeggiPrestitiByNomeSocio(string nome, string cognome)
+        {
+            try
+            {
+                return _prestitiRepository.ReadByNominativo(nome, cognome).ToList();
             }
             catch (Exception ex)
             {

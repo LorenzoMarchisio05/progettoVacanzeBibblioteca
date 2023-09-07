@@ -41,25 +41,27 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             WHERE idLibro NOT IN ( SELECT DISTINCT idLibro
                                    FROM PRESTITI )";
         
-        private const string QUERY_03 = @"SELECT TOP 1 WITH TIES count(*) AS 'numero libri lettii', Socio.* 
+        private const string QUERY_03 = @"SELECT TOP 1 WITH TIES count(*) AS 'numero libri letti', Soci.idSocio 
             FROM Soci, Prestiti
             WHERE Soci.idSocio = Prestiti.idSocio
+            GROUP BY Soci.idSocio
             ORDER BY count(*)";
         
-        private const string QUERY_04 = @"SELECT Socio.* 
-            FROM Socio, Prestiti
-            WHERE Socio.idSocio = Prestiti.idSocio
-                AND DATEADD(days, 30, Prestiti.DataInizio) > CAST( GETDATE() AS DATE )";
+        private const string QUERY_04 = @"SELECT Soci.* 
+            FROM Soci, Prestiti
+            WHERE Soci.idSocio = Prestiti.idSocio
+                AND DATEADD(day, 30, Prestiti.DataInizio) > CAST( GETDATE() AS DATE )";
         
         private const string QUERY_05 = @"SELECT COUNT(*), Autori.Nome + ' ' + Autori.Cognome
             FROM libri, scrivono, autori
             WHERE Libri.idLibro = Scrivono.idLibro AND 
-                  Scrvinono.idAutore = Autori.idAutore";
+                  Scrivono.idAutore = Autori.idAutore
+            GROUP BY Autori.Nome + ' ' + Autori.Cognome;";
         
         private const string QUERY_06 = @"SELECT Libri.* 
-            FROM Libri, SonoContenute, ParolaChiave
+            FROM Libri, SonoContenute, ParoleChiave
             WHERE Libri.idLibro = SonoContenute.idLibro 
-                AND SonoContenuto.idParolaChiave = (SELECT idParolaChiave 
+                AND SonoContenute.idParolaChiave = (SELECT idParolaChiave 
                                                     FROM ParoleChiave
                                                     WHERE ParolaChiave = @parolaChiave)";
         
@@ -67,8 +69,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
         
         private const string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, Prestiti.DataFine)
             FROM Libri, Prestiti
-            WHERE Libri.idLibro = Prestiti.idLibro
-            GROUP BY Libri.Titolo";
+            WHERE Libri.idLibro = Prestiti.idLibro";
         
         private const string QUERY_09 = @"SELECT Libri.Titolo, Prestiti.DataInizio 
             FROM Libri, Prestiti
@@ -109,7 +110,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 
                 return lista;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return InternalError.Create("Errore database");
             }
@@ -251,13 +252,13 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             if (genere is null)
             {
                 // ricerca per lingua
-                command.CommandText += "WHERE lingua = @lingua";
+                command.CommandText += " WHERE lingua = @lingua";
                 command.Parameters.AddWithValue("lingua", lingua);
             }
             else
             {
                 // ricerca per genere
-                command.CommandText += "WHERE genere = @genere";
+                command.CommandText += " WHERE genere = @genere";
                 command.Parameters.AddWithValue("genere", genere);
             }
             

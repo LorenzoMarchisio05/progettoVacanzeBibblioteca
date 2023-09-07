@@ -5,7 +5,7 @@ using progettoVacanzeBibblioteca.Domain.Entities;
 
 namespace progettoVacanzeBibblioteca.Infrastructure.Adapters
 {
-    public class PrestitoAdapter
+    public class PrestitiAdapter
     {
         public static IEnumerable<Prestito> Adapt(DataRowCollection rows)
         {
