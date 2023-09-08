@@ -35,7 +35,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             
             var series = new Series("TitoloNumeroPrestiti")
             {
-                ChartType = SeriesChartType.Spline,
+                ChartType = SeriesChartType.Column,
                 Color = Color.Blue,
                 IsValueShownAsLabel = true,
                 IsVisibleInLegend = true,
@@ -46,22 +46,31 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 CommandText = query,
             };
 
-            var dataTable = _database.ExecuteQuery(command);
-            
-            foreach (DataRow row in dataTable.Rows)
+            try
             {
-                var prestito = Convert.ToInt32(row.ItemArray.GetValue(0));
-                var titolo = row.ItemArray.GetValue(1).ToString();
-                
-                series.Points.Add(new DataPoint
-                {
-                    Name = titolo,
-                    AxisLabel = titolo,
-                    XValue = prestito,
-                });
-            }
+                var dataTable = _database.ExecuteQuery(command);
             
-            _chart.Series.Add(series);
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    var prestito = Convert.ToInt32(row.ItemArray.GetValue(0));
+                    var titolo = row.ItemArray.GetValue(1).ToString();
+                
+                    series.Points.Add(new DataPoint
+                    {
+                        Name = titolo,
+                        AxisLabel = titolo,
+                        XValue = prestito,
+                    });
+                }
+            
+                _chart.Series.Add(series);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            
         }
         
     }

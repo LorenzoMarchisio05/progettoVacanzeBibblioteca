@@ -32,7 +32,9 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnCercaParolaChiave_Click(object sender, EventArgs e)
         {
-
+            _prestitiController.LeggiPrestitiByParolaChiave(txtParolaChiave.Text?.Trim()).Switch(
+                libri => updateDgv(libri),
+                errore => MessageBox.Show(errore.ToString()));
         }
 
         private void btnCercaPerIdSocio_Click(object sender, EventArgs e)

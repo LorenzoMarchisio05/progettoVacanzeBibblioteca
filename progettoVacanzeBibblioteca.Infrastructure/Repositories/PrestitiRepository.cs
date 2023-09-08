@@ -30,14 +30,6 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         private const string UPDATE_DISPONIBILE_LIBRO = @"UPDATE Libri 
             SET Disponibile = 0 
             WHERE  idLibro = @idLibro";
-
-        private const string SELECT_LIBRI_AUTORE = @"SELECT Libri.* 
-            FROM Libri, Scrivono 
-            WHERE Libri.idLibro = Scrivono.idLibro 
-                AND Scrivono.idAutore = (SELECT idAutore 
-                                         FROM Autori 
-                                         WHERE nome = @nome 
-                                            AND cognome = @cognome)";
         
         private readonly string SELECT_All = $@"SELECT * 
             FROM {TABLE_NAME};";
@@ -46,6 +38,21 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
             FROM {TABLE_NAME}, Libri
             WHERE Libri.idLibro = {TABLE_NAME}.idPrestito 
                 AND idPrestito = @id;";
+        
+        private const string SELECT_LIBRI_AUTORE = @"SELECT Libri.* 
+            FROM Libri, Scrivono 
+            WHERE Libri.idLibro = Scrivono.idLibro 
+                AND Scrivono.idAutore = (SELECT idAutore 
+                                         FROM Autori 
+                                         WHERE nome = @nome 
+                                            AND cognome = @cognome)";
+
+        private const string SELECT_LIBRI_PAROLA_CHIAVE = @"SELECT Libri.*
+            FROM Libri, SonoContenute
+            WHERE Libri.idLibro = SonoContenute.IdLibro
+                AND SonoContenute.idParolaChiave = (SELECT idParolaChiave
+                                                    FROM ParoleChiave
+                                                    WHERE ParolaChiave = @parolaChiave);";
         
         private readonly string SELECT_BY_ID_SOCIO = $@"SELECT Libri.* 
             FROM {TABLE_NAME}, Libri
@@ -155,7 +162,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         {
             var command = new SqlCommand
             {
-                CommandText = SELECT_LIBRI_AUTORE,
+                CommandText = SELECT_LIBRI_PAROLA_CHIAVE,
                 Parameters =
                 {
                     new SqlParameter("parolaChiave", SqlDbType.VarChar) { Value = parolaChiave},

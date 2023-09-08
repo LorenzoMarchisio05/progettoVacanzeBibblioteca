@@ -66,6 +66,18 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 return InternalError.Create(ex.Message);
             }
         }
+        
+        public OneOf<IReadOnlyList<Libro>, InternalError> LeggiPrestitiByParolaChiave(string parolaChiave)
+        {
+            try
+            {
+                return _prestitiRepository.ReadLibriByParolaChiave(parolaChiave).ToList();
+            }
+            catch (Exception ex)
+            {
+                return InternalError.Create(ex.Message);
+            }
+        }
 
         public OneOf<IReadOnlyList<Prestito>, InternalError> LeggiPrestiti()
         {
@@ -128,5 +140,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 return InternalError.Create(ex.Message);
             }
         }
+
+        
     }
 }

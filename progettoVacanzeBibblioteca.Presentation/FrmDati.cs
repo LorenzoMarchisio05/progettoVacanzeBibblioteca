@@ -15,7 +15,8 @@ namespace progettoVacanzeBibblioteca.Presentation
 {
     public partial class FrmDati : Form
     {
-        private QueryController queryController;
+        private QueryController _queryController;
+        private ChartController _chartController;
         public FrmDati()
         {
             InitializeComponent();
@@ -23,21 +24,26 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void FrmDati_Load(object sender, EventArgs e)
         {
-            queryController = new QueryController();
+            _queryController = new QueryController();
+            _chartController = new ChartController(chart);
         }
 
         private void btnQuery1_Click(object sender, EventArgs e)
         {
-            queryController.fetch5libriPiuLettiConNumeroPrestiti()
+            _queryController.fetch5libriPiuLettiConNumeroPrestiti()
                 .Switch(
-                    data => updateDgv(data),
+                    data =>
+                    {
+                        updateDgv(data);
+                        _chartController.MostraNumeroPrestiti();
+                    },
                     errore => MessageBox.Show(errore.ToString())
                 );
         }
 
         private void btnQuery2_Click(object sender, EventArgs e)
         {
-            queryController.fetchLibriMaiLetti()
+            _queryController.fetchLibriMaiLetti()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -46,16 +52,20 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery3_Click(object sender, EventArgs e)
         {
-            queryController.fetchSocioPiuLibriLettiCoNumeroPrestiti()
+            _queryController.fetchSocioPiuLibriLettiCoNumeroPrestiti()
                 .Switch(
-                    data => updateDgv(new[] { data }),
+                    data =>
+                    {
+                        updateDgv(new[] { data });
+                        _chartController.MostraNumeroPrestiti();
+                    },
                     errore => MessageBox.Show(errore.ToString())
                 );
         }
 
         private void btnQuery4_Click(object sender, EventArgs e)
         {
-            queryController.fetchSociInRitardoRestituzioneLibri()
+            _queryController.fetchSociInRitardoRestituzioneLibri()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -64,7 +74,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery5_Click(object sender, EventArgs e)
         {
-            queryController.fetchNumeroLibriPerAutore()
+            _queryController.fetchNumeroLibriPerAutore()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -73,7 +83,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery6_Click(object sender, EventArgs e)
         {
-            queryController.fetchLibriPerParolaChiave(Interaction.InputBox("Inserisci parola chiave"))
+            _queryController.fetchLibriPerParolaChiave(Interaction.InputBox("Inserisci parola chiave"))
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -101,7 +111,7 @@ namespace progettoVacanzeBibblioteca.Presentation
                 genere = Interaction.InputBox("Inserisci genere");
             }
 
-            queryController.fetchLibriPerLinguaGenere(lingua, genere)
+            _queryController.fetchLibriPerLinguaGenere(lingua, genere)
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -110,7 +120,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery8_Click(object sender, EventArgs e)
         {
-            queryController.fetchNumeroGiorniMedioPrestitoPerLibro()
+            _queryController.fetchNumeroGiorniMedioPrestitoPerLibro()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -119,7 +129,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery9_Click(object sender, EventArgs e)
         {
-            queryController.fetchLibriAttualmenteInPrestitoInOrdineDataPrestitoTitolo()
+            _queryController.fetchLibriAttualmenteInPrestitoInOrdineDataPrestitoTitolo()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
@@ -128,7 +138,7 @@ namespace progettoVacanzeBibblioteca.Presentation
 
         private void btnQuery10_Click(object sender, EventArgs e)
         {
-            queryController.fetchNumeroPrestitiPerMeseAnno()
+            _queryController.fetchNumeroPrestitiPerMeseAnno()
                 .Switch(
                     data => updateDgv(data),
                     errore => MessageBox.Show(errore.ToString())
