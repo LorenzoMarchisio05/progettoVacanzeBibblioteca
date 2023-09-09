@@ -41,16 +41,17 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             WHERE idLibro NOT IN ( SELECT DISTINCT idLibro
                                    FROM PRESTITI )";
         
-        private const string QUERY_03 = @"SELECT TOP 1 WITH TIES count(*) AS 'numero libri letti', Soci.idSocio 
-            FROM Soci, Prestiti
-            WHERE Soci.idSocio = Prestiti.idSocio
-            GROUP BY Soci.idSocio
-            ORDER BY count(*)";
+        private const string QUERY_03 = @"SELECT * 
+            FROM Soci 
+            WHERE idSocio IN (SELECT TOP 1 WITH TIES Prestiti.idSocio 
+                                FROM Prestiti
+                                GROUP BY Prestiti.idSocio
+                                ORDER BY count(*));";
         
         private const string QUERY_04 = @"SELECT Soci.* 
             FROM Soci, Prestiti
             WHERE Soci.idSocio = Prestiti.idSocio
-                AND DATEADD(day, 30, Prestiti.DataInizio) > CAST( GETDATE() AS DATE )";
+                AND CAST( GETDATE() AS DATE ) > DATEADD(day, 30, Prestiti.DataInizio)";
         
         private const string QUERY_05 = @"SELECT COUNT(*), Autori.Nome + ' ' + Autori.Cognome
             FROM libri, scrivono, autori
@@ -59,7 +60,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             GROUP BY Autori.Nome + ' ' + Autori.Cognome;";
         
         private const string QUERY_06 = @"SELECT Libri.* 
-            FROM Libri, SonoContenute, ParoleChiave
+            FROM Libri, SonoContenute
             WHERE Libri.idLibro = SonoContenute.idLibro 
                 AND SonoContenute.idParolaChiave = (SELECT idParolaChiave 
                                                     FROM ParoleChiave
@@ -67,18 +68,19 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
         
         private const string QUERY_07 = @"SELECT * FROM libri";
         
-        private const string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, Prestiti.DataFine)
+        private const string QUERY_08 = @"SELECT Libri.Titolo, DATEDIFF(day, Prestiti.DataInizio, IIF(Prestiti.DataFine is NULL, CAST(GETDATE() AS DATE), Prestiti.DataFine))
             FROM Libri, Prestiti
             WHERE Libri.idLibro = Prestiti.idLibro";
         
         private const string QUERY_09 = @"SELECT Libri.Titolo, Prestiti.DataInizio 
             FROM Libri, Prestiti
             WHERE Libri.idLibro = Prestiti.idLibro
+                AND Libri.Disponibile = 0
             ORDER BY Libri.Titolo, Prestiti.DataInizio";
         
         private const string QUERY_10 = @"SELECT COUNT(*), MONTH(DataInizio), YEAR(DataInizio) 
             FROM prestiti
-            GROUP BY MONTH(DataInizio), YEAR(DataInizio);";
+            GROUP BY MONTH(DataInizio) , YEAR(DataInizio);";
         
         #endregion
 
@@ -98,8 +100,8 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 {
                     foreach (DataRow row in rows)
                     {
-                        var titolo = row.ItemArray[0]?.ToString();
-                        var prestiti = Convert.ToInt32(row.ItemArray[1]);
+                        var prestiti = Convert.ToInt32(row.ItemArray[0]);
+                        var titolo = row.ItemArray[1]?.ToString();
                         lista.Add((titolo, prestiti));
                     }
                 }
@@ -110,7 +112,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return InternalError.Create("Errore database");
             }
@@ -133,7 +135,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             }
         }
 
-        public OneOf<(Socio socio, int prestiti), InternalError> fetchSocioPiuLibriLettiCoNumeroPrestiti()
+        public OneOf<IReadOnlyList<Socio>, InternalError> fetchSocioPiuLibriLettiCoNumeroPrestiti()
         {
             try
             {
@@ -143,22 +145,12 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 };
                 var rows = _database.ExecuteQuery(command).Rows;
 
-                if (rows.Count != 1)
+                if (rows.Count < 1)
                 {
                     return InternalError.Create("Errore nessun valore trovato");
                 }
 
-                try
-                {
-                    var socio = SocioAdapter.Adapt(rows[0]);
-                    var prestiti = Convert.ToInt32(rows[rows.Count - 1]);
-
-                    return (socio, prestiti);
-                }
-                catch (Exception)
-                {
-                    return InternalError.Create("Errore nella conversione dei dati");
-                }
+                return SocioAdapter.Adapt(rows).ToList();
             }
             catch (Exception)
             {
@@ -200,8 +192,8 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 {
                     foreach (DataRow row in rows)
                     {
-                        var autore = row.ItemArray[0]?.ToString();
-                        var libri = Convert.ToInt32(row.ItemArray[1]);
+                        var libri = Convert.ToInt32(row.ItemArray[0]);
+                        var autore = row.ItemArray[1]?.ToString();
                         lista.Add((autore, libri));
                     }
                 }
@@ -258,7 +250,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             else
             {
                 // ricerca per genere
-                command.CommandText += " WHERE genere = @genere";
+                command.CommandText += " WHERE idGenere = (SELECT idGenere FROM generi WHERE genere = @genere)";
                 command.Parameters.AddWithValue("genere", genere);
             }
             
@@ -308,7 +300,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
             }
         }
 
-        public OneOf<IReadOnlyList<Libro>, InternalError> fetchLibriAttualmenteInPrestitoInOrdineDataPrestitoTitolo()
+        public OneOf<IReadOnlyList<(string titolo, string data)>, InternalError> fetchLibriAttualmenteInPrestitoInOrdineDataPrestitoTitolo()
         {
             try
             {
@@ -316,9 +308,26 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 {
                     CommandText = QUERY_09
                 };
-                var dataTable = _database.ExecuteQuery(command);
-            
-                return LibroAdapter.Adapt(dataTable.Rows).ToList();
+                var rows = _database.ExecuteQuery(command).Rows;
+
+                var lista = new List<(string titolo, string data)>(rows.Count);
+
+                try
+                {
+                    foreach (DataRow row in rows)
+                    {
+                        var titolo = row.ItemArray[0]?.ToString();
+                        var data = row.ItemArray[1]?.ToString();
+                        lista.Add((titolo, data));
+                    }
+                }
+                catch (Exception)
+                {
+                    return InternalError.Create("Errore conversione dati");
+                }
+
+                return lista;
+
             }
             catch (Exception)
             {
@@ -336,14 +345,14 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                 };
                 var rows = _database.ExecuteQuery(command).Rows;
 
-                var lista = new List<(string autore, int libri)>(rows.Count);
+                var lista = new List<(string meseAnno, int numeroPrestiti)>(rows.Count);
 
                 try
                 {
                     foreach (DataRow row in rows)
                     {
-                        var meseAnno = row.ItemArray[0]?.ToString();
-                        var numeroPrestiti = Convert.ToInt32(row.ItemArray[1]);
+                        var numeroPrestiti = Convert.ToInt32(row.ItemArray[0]);
+                        var meseAnno = row.ItemArray[1]?.ToString() + "/" + row.ItemArray[2]?.ToString();
                         lista.Add((meseAnno, numeroPrestiti));
                     }
                 }

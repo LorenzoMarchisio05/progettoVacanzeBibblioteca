@@ -62,7 +62,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
                 },
             };
 
-            return (int)(_database.ExecuteScalar(command) ?? -1);
+            return Convert.ToInt64(_database.ExecuteScalar(command) ?? -1);
         }
 
         public IEnumerable<Socio> Read()
@@ -96,7 +96,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         {
             var command = new SqlCommand
             {
-                CommandText = DELETE_BY_ID,
+                CommandText = UPDATE_BY_ID,
                 Parameters =
                 {
                     new SqlParameter("id", SqlDbType.Int) { Value = socio.Id },

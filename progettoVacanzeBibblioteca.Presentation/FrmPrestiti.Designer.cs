@@ -31,33 +31,33 @@
             this.dgv = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtParolaChiave = new System.Windows.Forms.TextBox();
+            this.btnCercaParolaChiave = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCognomeAutore = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtNomeAutore = new System.Windows.Forms.TextBox();
             this.btnCercaPerAutore = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnCercaParolaChiave = new System.Windows.Forms.Button();
-            this.txtParolaChiave = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtCognome = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.btnRicercaPerNominativo = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nudIdSocio = new System.Windows.Forms.NumericUpDown();
             this.btnCercaPerIdSocio = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.nudIdSocio = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtCognome = new System.Windows.Forms.TextBox();
-            this.txtCognomeAutore = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdSocio)).BeginInit();
@@ -82,6 +82,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(488, 608);
             this.tabControl1.TabIndex = 1;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -95,17 +96,73 @@
             this.tabPage1.Text = "Ricerca Libri Disponibile";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // groupBox2
             // 
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(480, 579);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Libri in Prestito";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.txtParolaChiave);
+            this.groupBox2.Controls.Add(this.btnCercaParolaChiave);
+            this.groupBox2.Location = new System.Drawing.Point(15, 283);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(459, 289);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ricerca per parola chiave";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Parola Chiave";
+            // 
+            // txtParolaChiave
+            // 
+            this.txtParolaChiave.Location = new System.Drawing.Point(20, 53);
+            this.txtParolaChiave.Name = "txtParolaChiave";
+            this.txtParolaChiave.Size = new System.Drawing.Size(422, 22);
+            this.txtParolaChiave.TabIndex = 3;
+            // 
+            // btnCercaParolaChiave
+            // 
+            this.btnCercaParolaChiave.Location = new System.Drawing.Point(20, 81);
+            this.btnCercaParolaChiave.Name = "btnCercaParolaChiave";
+            this.btnCercaParolaChiave.Size = new System.Drawing.Size(116, 40);
+            this.btnCercaParolaChiave.TabIndex = 4;
+            this.btnCercaParolaChiave.Text = "Cerca";
+            this.btnCercaParolaChiave.UseVisualStyleBackColor = true;
+            this.btnCercaParolaChiave.Click += new System.EventHandler(this.btnCercaParolaChiave_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtCognomeAutore);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtNomeAutore);
+            this.groupBox1.Controls.Add(this.btnCercaPerAutore);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(468, 271);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Ricerca per autore";
+            // 
+            // txtCognomeAutore
+            // 
+            this.txtCognomeAutore.Location = new System.Drawing.Point(19, 104);
+            this.txtCognomeAutore.Name = "txtCognomeAutore";
+            this.txtCognomeAutore.Size = new System.Drawing.Size(422, 22);
+            this.txtCognomeAutore.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(16, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 16);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Cognome";
             // 
             // txtNomeAutore
             // 
@@ -133,57 +190,17 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Nome";
             // 
-            // label2
+            // tabPage2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 16);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Parola Chiave";
-            // 
-            // btnCercaParolaChiave
-            // 
-            this.btnCercaParolaChiave.Location = new System.Drawing.Point(20, 81);
-            this.btnCercaParolaChiave.Name = "btnCercaParolaChiave";
-            this.btnCercaParolaChiave.Size = new System.Drawing.Size(116, 40);
-            this.btnCercaParolaChiave.TabIndex = 4;
-            this.btnCercaParolaChiave.Text = "Cerca";
-            this.btnCercaParolaChiave.UseVisualStyleBackColor = true;
-            this.btnCercaParolaChiave.Click += new System.EventHandler(this.btnCercaParolaChiave_Click);
-            // 
-            // txtParolaChiave
-            // 
-            this.txtParolaChiave.Location = new System.Drawing.Point(20, 53);
-            this.txtParolaChiave.Name = "txtParolaChiave";
-            this.txtParolaChiave.Size = new System.Drawing.Size(422, 22);
-            this.txtParolaChiave.TabIndex = 3;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtCognomeAutore);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.txtNomeAutore);
-            this.groupBox1.Controls.Add(this.btnCercaPerAutore);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(468, 271);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ricerca per autore";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.txtParolaChiave);
-            this.groupBox2.Controls.Add(this.btnCercaParolaChiave);
-            this.groupBox2.Location = new System.Drawing.Point(15, 283);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(459, 289);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ricerca per parola chiave";
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(480, 579);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Libri in Prestito";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -198,6 +215,22 @@
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ricerca per nominativo";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Cognome";
+            // 
+            // txtCognome
+            // 
+            this.txtCognome.Location = new System.Drawing.Point(20, 104);
+            this.txtCognome.Name = "txtCognome";
+            this.txtCognome.Size = new System.Drawing.Size(422, 22);
+            this.txtCognome.TabIndex = 6;
             // 
             // label3
             // 
@@ -237,6 +270,18 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Ricerca per id socio";
             // 
+            // nudIdSocio
+            // 
+            this.nudIdSocio.Location = new System.Drawing.Point(19, 55);
+            this.nudIdSocio.Maximum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            0});
+            this.nudIdSocio.Name = "nudIdSocio";
+            this.nudIdSocio.Size = new System.Drawing.Size(432, 22);
+            this.nudIdSocio.TabIndex = 3;
+            // 
             // btnCercaPerIdSocio
             // 
             this.btnCercaPerIdSocio.Location = new System.Drawing.Point(19, 83);
@@ -256,50 +301,6 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "ID Socio";
             // 
-            // nudIdSocio
-            // 
-            this.nudIdSocio.Location = new System.Drawing.Point(19, 55);
-            this.nudIdSocio.Maximum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            0});
-            this.nudIdSocio.Name = "nudIdSocio";
-            this.nudIdSocio.Size = new System.Drawing.Size(432, 22);
-            this.nudIdSocio.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 85);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Cognome";
-            // 
-            // txtCognome
-            // 
-            this.txtCognome.Location = new System.Drawing.Point(20, 104);
-            this.txtCognome.Name = "txtCognome";
-            this.txtCognome.Size = new System.Drawing.Size(422, 22);
-            this.txtCognome.TabIndex = 6;
-            // 
-            // txtCognomeAutore
-            // 
-            this.txtCognomeAutore.Location = new System.Drawing.Point(19, 104);
-            this.txtCognomeAutore.Name = "txtCognomeAutore";
-            this.txtCognomeAutore.Size = new System.Drawing.Size(422, 22);
-            this.txtCognomeAutore.TabIndex = 3;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 85);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 16);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Cognome";
-            // 
             // FrmPrestiti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -313,11 +314,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);

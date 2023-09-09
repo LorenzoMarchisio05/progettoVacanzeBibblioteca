@@ -49,9 +49,9 @@ namespace progettoVacanzeBibblioteca.Presentation
                 return;
             }
             _libriController.AggiungiLibro(libro).Switch(
-                _ =>
+                id =>
                 {
-                    libri.Add(libro);
+                    libri.Add(new Libro(id, libro.Titolo, libro.AnnoPubblicazione, libro.Lingua, libro.Disponibile, libro.IdGenere));
                     updateDataGridView();
                     MessageBox.Show("Libro inserito con successo");
                     clearModifica();

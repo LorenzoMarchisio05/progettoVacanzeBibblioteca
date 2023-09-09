@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -62,7 +63,7 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
                 },
             };
 
-            return (long)(_database.ExecuteScalar(command) ?? -1);
+            return Convert.ToInt64(_database.ExecuteScalar(command) ?? -1);
         }
 
         public IEnumerable<Libro> Read()

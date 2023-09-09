@@ -37,3 +37,4 @@ C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Pre
 C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Presentation\obj\Debug\progettoVacanzeBibblioteca.Presentation.exe
 C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Presentation\obj\Debug\progettoVacanzeBibblioteca.Presentation.pdb
 C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Presentation\obj\Debug\progettoVacanzeBibblioteca.Presentation.FrmDati.resources
+C:\Users\gring\Desktop\progettoVacanzeBibblioteca\progettoVacanzeBibblioteca.Presentation\obj\Debug\progettoVacanzeBibblioteca.Presentation.FrmPrestiti.resources

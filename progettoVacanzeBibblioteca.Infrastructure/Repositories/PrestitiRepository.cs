@@ -56,8 +56,8 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
         
         private readonly string SELECT_BY_ID_SOCIO = $@"SELECT Libri.* 
             FROM {TABLE_NAME}, Libri
-            WHERE libri.idLibro = {TABLE_NAME}.idLibro,
-                idSocio = @id;";
+            WHERE libri.idLibro = {TABLE_NAME}.idLibro
+                AND idSocio = @id;";
 
         private readonly string SELECT_BY_NOMINATIVO_SOCIO = $@"SELECT Libri.* 
             FROM {TABLE_NAME}, Libri
@@ -67,9 +67,13 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Repositories
                                     WHERE nome = @nome
                                         AND cognome = @cognome)";
 
-        private readonly string DELETE_BY_ID = $@"DELETE 
-            FROM {TABLE_NAME} 
-            WHERE idPrestito = @id;";
+        private readonly string DELETE_BY_ID = $@"UPDATE Libri 
+                SET Disponibile = 1
+            WHERE idLibro = @id;
+            DELETE FROM {TABLE_NAME} 
+            WHERE idPrestito = (SELECT idPrestito 
+                            FROM Prestiti 
+                            WHERE idLibro = @id);";
         
         private readonly string UPDATE_BY_ID = $@"UPDATE {TABLE_NAME}
             SET

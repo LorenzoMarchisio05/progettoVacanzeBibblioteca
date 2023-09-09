@@ -19,6 +19,7 @@ namespace progettoVacanzeBibblioteca.Presentation
         public FrmPrestiti()
         {
             InitializeComponent();
+            MessageBox.Show("Doppio click su una riga per restituire il libro in prestito");
 
             _prestitiController = new PrestitiController();
         }
@@ -55,6 +56,44 @@ namespace progettoVacanzeBibblioteca.Presentation
         {
             dgv.DataSource = null;
             dgv.DataSource = data;
+        }
+
+        private void dgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var rowIndex = e.RowIndex;
+
+            if (rowIndex < 0) return;
+
+            if(DialogResult.Yes == MessageBox.Show("Vuoi restituire il libro?", "Confirm", MessageBoxButtons.YesNoCancel))
+            {
+                var id = Convert.ToInt64(dgv.Rows[rowIndex].Cells[0].Value);
+                var message = _prestitiController.EliminaPrestito(id).Match(
+                    _ => "libro restituito con successo",
+                    errore1 => errore1.ToString(),
+                    errore2 => errore2.ToString()
+                );
+                MessageBox.Show(message);
+                dgv.DataSource = null;
+                dgv.Rows.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Operazione annullata");
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgv.DataSource = null;
+            dgv.Rows.Clear();
+            if(tabControl1.SelectedIndex == 1)
+            {
+                dgv.CellDoubleClick += dgv_CellDoubleClick;
+            }
+            else
+            {
+                dgv.CellDoubleClick -= dgv_CellDoubleClick;
+            }
         }
     }
 }

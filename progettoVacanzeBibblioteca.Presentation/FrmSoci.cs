@@ -50,7 +50,7 @@ namespace progettoVacanzeBibblioteca.Presentation
             _sociController.AggiungiSocio(socio).Switch(
                 id =>
                 {
-                    soci.Add(socio);
+                    soci.Add(new Socio(id, socio.Cognome, socio.Nome, socio.Telefono, socio.Email));
                     updateDataGridView();
                     MessageBox.Show("Socio inserito con successo");
                     clearModifica();

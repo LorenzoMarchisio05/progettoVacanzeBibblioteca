@@ -55,12 +55,9 @@ namespace progettoVacanzeBibblioteca.Infrastructure.Controllers
                     var prestito = Convert.ToInt32(row.ItemArray.GetValue(0));
                     var titolo = row.ItemArray.GetValue(1).ToString();
                 
-                    series.Points.Add(new DataPoint
-                    {
-                        Name = titolo,
-                        AxisLabel = titolo,
-                        XValue = prestito,
-                    });
+                    series.Points.Add(prestito);
+                    series.Points[series.Points.Count - 1].AxisLabel = titolo;
+                    series.Points[series.Points.Count - 1].Name = titolo;
                 }
             
                 _chart.Series.Add(series);

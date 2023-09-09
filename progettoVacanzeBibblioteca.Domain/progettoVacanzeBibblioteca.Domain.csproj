@@ -1,69 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{0DEE13A2-F321-41B0-BF17-F5F4442CA004}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>progettoVacanzeBibblioteca.Domain</RootNamespace>
-        <AssemblyName>progettoVacanzeBibblioteca.Domain</AssemblyName>
-        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Entities\Email.cs" />
-        <Compile Include="Entities\Libro.cs" />
-        <Compile Include="Entities\PhoneNumber.cs" />
-        <Compile Include="Entities\Prestito.cs" />
-        <Compile Include="Entities\Socio.cs" />
-        <Compile Include="Errors\BaseError.cs" />
-        <Compile Include="Errors\ErroriLibri\LibroNotDeleted.cs" />
-        <Compile Include="Errors\ErroriLibri\LibroNotFound.cs" />
-        <Compile Include="Errors\ErroriLibri\LibroNotUpdated.cs" />
-        <Compile Include="Errors\ErroriPrestiti\PresitoNotFound.cs" />
-        <Compile Include="Errors\ErroriPrestiti\PrestitoNotDeleted.cs" />
-        <Compile Include="Errors\ErroriPrestiti\PrestitoNotUpdated.cs" />
-        <Compile Include="Errors\ErroriSoci\SocioNotDeleted.cs" />
-        <Compile Include="Errors\ErroriSoci\SocioNotFound.cs" />
-        <Compile Include="Errors\ErroriSoci\SocioNotUpdated.cs" />
-        <Compile Include="Errors\InternalError.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Settings\GlobalSettings.cs" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0DEE13A2-F321-41B0-BF17-F5F4442CA004}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>progettoVacanzeBibblioteca.Domain</RootNamespace>
+    <AssemblyName>progettoVacanzeBibblioteca.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Email.cs" />
+    <Compile Include="Entities\Libro.cs" />
+    <Compile Include="Entities\PhoneNumber.cs" />
+    <Compile Include="Entities\Prestito.cs" />
+    <Compile Include="Entities\Socio.cs" />
+    <Compile Include="Entities\TupleDTO.cs" />
+    <Compile Include="Errors\BaseError.cs" />
+    <Compile Include="Errors\ErroriLibri\LibroNotDeleted.cs" />
+    <Compile Include="Errors\ErroriLibri\LibroNotFound.cs" />
+    <Compile Include="Errors\ErroriLibri\LibroNotUpdated.cs" />
+    <Compile Include="Errors\ErroriPrestiti\PresitoNotFound.cs" />
+    <Compile Include="Errors\ErroriPrestiti\PrestitoNotDeleted.cs" />
+    <Compile Include="Errors\ErroriPrestiti\PrestitoNotUpdated.cs" />
+    <Compile Include="Errors\ErroriSoci\SocioNotDeleted.cs" />
+    <Compile Include="Errors\ErroriSoci\SocioNotFound.cs" />
+    <Compile Include="Errors\ErroriSoci\SocioNotUpdated.cs" />
+    <Compile Include="Errors\InternalError.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\GlobalSettings.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>
